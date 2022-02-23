@@ -1,0 +1,5 @@
+woocommerce
+Django
+djangorestframework
+redis
+pytz

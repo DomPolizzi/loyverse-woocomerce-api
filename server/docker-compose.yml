@@ -1,0 +1,14 @@
+  version: '3.8'
+
+  services:
+    redis:
+      container_name: pycache
+      image: redislabs/rejson
+      volumes:
+        - redis_data:/data
+      ports:
+        - 6379:6379
+      entrypoint: redis-server --appendonly yes
+  #    restart: always
+  volumes:
+    redis_data:

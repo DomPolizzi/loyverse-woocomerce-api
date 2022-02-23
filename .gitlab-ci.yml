@@ -1,0 +1,26 @@
+stages:
+#  - test
+  - SecCheck
+
+#test_variable:
+#  stage: test
+#  script:
+#    - echo "$CI_JOB_STAGE" # calls a predefined variable
+
+Security_Check:
+  stage: SecCheck
+  image: "python:slim"
+  allow_failure: true
+  script:
+    - echo "Running updates, Standby. . . "
+    - apt update -y
+    - apt upgrade -y
+    - apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    - python3 pipeline/date.py
+    - pip install pylint
+    - chmod +x pipeline/lint.sh
+    - echo "checking changes"
+    - echo " ."
+    - ./pipeline/lint.sh
+    - echo "Now to check current Files:"
+    - find . -name '*.py' -exec pylint {} \;
